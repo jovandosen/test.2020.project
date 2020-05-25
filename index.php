@@ -71,6 +71,13 @@ function getUserList()
 		$users[] = $user;
 	}
 
+	return $users;
+}
+
+function generateOutput()
+{
+	$users = getUserList();
+
 	$rows = [];
 
 	$firstRow = "User List\n--------------------------\n";
@@ -90,9 +97,8 @@ function getUserList()
 	$rows[] = $lastRow;
 
 	file_put_contents('files/output.txt', $rows);
-
 }
 
-getUserList();
+generateOutput();
 
 ?>

@@ -1,1 +1,30 @@
 Well and Good.
+
+function sortItems()
+{
+	$items = [3, 5, 1, 4, 2, 8, 10, 9, 7, 6]; // [3, 5, 1, 4, 2, 8, 10, 9, 7, 6]
+
+	$result = [];
+	
+	for( $i = 0; $i < count($items); $i++ ){
+
+		for( $j = 0; $j < count($items); $j++ ){
+
+			if( $items[$i] > $items[$j] ){
+
+				if( ! in_array($items[$j], $result) ){
+					$result[] = $items[$j];
+				}
+
+			} 
+
+		}
+
+		// break;
+
+	}
+
+	var_dump($result);
+}
+
+// sortItems();

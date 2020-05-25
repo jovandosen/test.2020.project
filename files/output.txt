@@ -1,1 +1,13 @@
-[{"firstName":"Neil","lastName":"Abercrombie","gender":"Male","favoriteColor":"Tan","dateOfBirth":"2\/13\/1943"},{"firstName":"Timothy","lastName":"Bishop","gender":"Male","favoriteColor":"Yellow","dateOfBirth":"4\/23\/1967"},{"firstName":"Sue","lastName":"Kelly","gender":"Female","favoriteColor":"Pink","dateOfBirth":"7\/12\/1959"},{"firstName":"Steve","lastName":"Smith","gender":"Male","favoriteColor":"Red","dateOfBirth":"3\/3\/1985"},{"firstName":"Bonk","lastName":"Radek","gender":"Male","favoriteColor":"Green","dateOfBirth":"6\/3\/1975"},{"firstName":"Bouillon","lastName":"Francis","gender":"Male","favoriteColor":"Blue","dateOfBirth":"6\/3\/1975"},{"firstName":"Anna","lastName":"Kournikova","gender":"Female","favoriteColor":"Red","dateOfBirth":"6\/3\/1975"},{"firstName":"Martina","lastName":"Hingis","gender":"Female","favoriteColor":"Green","dateOfBirth":"4\/2\/1979"},{"firstName":"Monica","lastName":"Seles","gender":"Female","favoriteColor":"Black","dateOfBirth":"12\/2\/1973"}]
+User List
+--------------------------
+Abercrombie     Neil            Male            2/13/1943       Tan            
+Bishop          Timothy         Male            4/23/1967       Yellow         
+Kelly           Sue             Female          7/12/1959       Pink           
+Smith           Steve           Male            3/3/1985        Red            
+Radek           Bonk            Male            6/3/1975        Green          
+Francis         Bouillon        Male            6/3/1975        Blue           
+Kournikova      Anna            Female          6/3/1975        Red            
+Hingis          Martina         Female          4/2/1979        Green          
+Seles           Monica          Female          12/2/1973       Black          
+
+--------------------------

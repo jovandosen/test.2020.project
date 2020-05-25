@@ -71,13 +71,26 @@ function getUserList()
 		$users[] = $user;
 	}
 
-	$users = json_encode($users);
+	$rows = [];
 
-	$result = file_put_contents('files/output.txt', $users);
+	$firstRow = "User List\n--------------------------\n";
 
-	if( $result ){
-		echo "Output file created.";
+	$rows[] = $firstRow;
+
+	foreach ($users as $userData) {
+
+		$row = str_pad($userData->lastName, 15) . " " . str_pad($userData->firstName, 15) . " " . str_pad($userData->gender, 15) . " " . str_pad($userData->dateOfBirth, 15) . " " . str_pad($userData->favoriteColor, 15) . "\n";
+
+		$rows[] = $row;
+
 	}
+
+	$lastRow = "\n--------------------------";
+
+	$rows[] = $lastRow;
+
+	file_put_contents('files/output.txt', $rows);
+
 }
 
 getUserList();

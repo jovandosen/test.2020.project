@@ -268,8 +268,6 @@ function sortByGenderAndLastName()
 	return $userList;
 }
 
-// sortByGenderAndLastName();
-
 function generateOutput()
 {
 	// USER LIST - UNSORTED

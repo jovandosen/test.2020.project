@@ -167,13 +167,47 @@ function sortByDateOfBirth()
 	return $userList;
 }
 
+function sortByLastName()
+{
+	$users = getUserList();
+
+	$lastNames = [];
+
+	foreach ($users as $user) {
+		$lastNames[] = $user->lastName;
+	}
+
+	$sortedLastNames = sortLogic($lastNames);
+
+	$sortedLastNames = array_reverse($sortedLastNames);
+
+	$userList = [];
+
+	foreach ($sortedLastNames as $userLastName) {
+		
+		foreach ($users as $userRecord) {
+			
+			if( $userLastName == $userRecord->lastName ){
+				$userList[] = $userRecord;
+				break;
+			}
+
+		}
+
+	}
+
+	return $userList;
+}
+
 function generateOutput()
 {
+	// USER LIST - UNSORTED
+
 	$users = getUserList();
 
 	$rows = [];
 
-	$firstRow = "User List - Unsorted\n--------------------------\n";
+	$firstRow = "User List - Unsorted\n--------------------------------------------------------------------\n";
 
 	$rows[] = $firstRow;
 
@@ -185,13 +219,17 @@ function generateOutput()
 
 	}
 
-	$lastRow = "\n--------------------------";
+	$lastRow = "\n--------------------------------------------------------------------";
 
 	$rows[] = $lastRow;
 
+	// END 
+
+	// USER LIST - SORTED BY DATE OF BIRTH - ASCENDING 
+
 	$usersSortedByDate = sortByDateOfBirth();
 
-	$firstRow = "\n\nUser List - Sorted by Date of Birth\n--------------------------\n";
+	$firstRow = "\n\nUser List - Sorted by Date of Birth - Ascending\n--------------------------------------------------------------------\n";
 
 	$rows[] = $firstRow;
 
@@ -204,6 +242,28 @@ function generateOutput()
 	}
 
 	$rows[] = $lastRow;
+
+	// END
+
+	// USER LIST - SORT BY LAST NAME - DESCENDING
+
+	$usersSortedByLastName = sortByLastName();
+
+	$firstRow = "\n\nUser List - Sorted by Last Name - Descending\n--------------------------------------------------------------------\n";
+
+	$rows[] = $firstRow;
+
+	foreach ($usersSortedByLastName as $userInfo) {
+		
+		$row = str_pad($userInfo->lastName, 15) . " " . str_pad($userInfo->firstName, 15) . " " . str_pad($userInfo->gender, 15) . " " . str_pad($userInfo->dateOfBirth, 15) . " " . str_pad($userInfo->favoriteColor, 15) . "\n";
+
+		$rows[] = $row;
+
+	}
+
+	$rows[] = $lastRow;
+
+	// END
 
 	file_put_contents('files/output.txt', $rows);
 }

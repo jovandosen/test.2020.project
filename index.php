@@ -74,13 +74,106 @@ function getUserList()
 	return $users;
 }
 
+function sortLogic($items)
+{
+	$dataPartOne = $dataPartTwo = [];
+
+	if( count($items) < 2 ){
+		return $items;
+	}
+
+	$firstItemKey = key($items);
+
+	$firstItemValue = array_shift($items);
+
+	foreach ($items as $item) {
+
+		if( $item <= $firstItemValue ){
+			$dataPartOne[] = $item;
+		} elseif( $item > $firstItemValue ){
+			$dataPartTwo[] = $item;
+		}
+
+	}
+
+	return array_merge( sortLogic($dataPartOne), array($firstItemKey=>$firstItemValue), sortLogic($dataPartTwo) );
+}
+
+function sortByDateOfBirth()
+{
+	$users = getUserList();
+
+	$years = [];
+
+	foreach ($users as $user) {
+		$date = $user->dateOfBirth;
+		$dateData = explode("/", $date);
+		$year = end($dateData);
+		$years[] = (int) $year;
+	}
+
+	$sortedYears = sortLogic($years);
+
+	$userList = [];
+
+	$checkYears = [];
+
+	$checkNames = [];
+
+	foreach ($sortedYears as $key => $value) {
+		
+		foreach ($users as $k => $v) {
+			
+			$userDateValue = $v->dateOfBirth;
+
+			$userDateData = explode("/", $userDateValue);
+
+			$yearValue = end($userDateData);
+
+			$yearValue = (int) $yearValue;
+
+			if( $value === $yearValue ){
+
+				if( ! in_array($yearValue, $checkYears) ){
+
+					$checkYears[] = $yearValue;
+
+					$checkNames[] = $v->firstName;
+
+					$userList[] = $v;
+
+					break;
+
+				} else {
+
+					if( ! in_array($v->firstName, $checkNames) ){
+
+						$checkNames[] = $v->firstName;
+
+						$userList[] = $v;
+
+						break;
+
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+	return $userList;
+}
+
 function generateOutput()
 {
 	$users = getUserList();
 
 	$rows = [];
 
-	$firstRow = "User List\n--------------------------\n";
+	$firstRow = "User List - Unsorted\n--------------------------\n";
 
 	$rows[] = $firstRow;
 
@@ -93,6 +186,22 @@ function generateOutput()
 	}
 
 	$lastRow = "\n--------------------------";
+
+	$rows[] = $lastRow;
+
+	$usersSortedByDate = sortByDateOfBirth();
+
+	$firstRow = "\n\nUser List - Sorted by Date of Birth\n--------------------------\n";
+
+	$rows[] = $firstRow;
+
+	foreach ($usersSortedByDate as $userDetails) {
+		
+		$row = str_pad($userDetails->lastName, 15) . " " . str_pad($userDetails->firstName, 15) . " " . str_pad($userDetails->gender, 15) . " " . str_pad($userDetails->dateOfBirth, 15) . " " . str_pad($userDetails->favoriteColor, 15) . "\n";
+
+		$rows[] = $row;
+
+	}
 
 	$rows[] = $lastRow;
 

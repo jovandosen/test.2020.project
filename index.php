@@ -199,6 +199,77 @@ function sortByLastName()
 	return $userList;
 }
 
+function sortByGenderAndLastName()
+{
+	$users = getUserList();
+
+	$women = [];
+
+	$men = [];
+
+	foreach ($users as $user) {
+
+		if( $user->gender == 'Female' ){
+			$women[] = $user;
+		} else {
+			$men[] = $user;
+		}
+
+	}
+
+	$womenLastNames = [];
+
+	foreach ($women as $woman) {
+		$womenLastNames[] = $woman->lastName;
+	}
+
+	$sortedWomenLastNames = sortLogic($womenLastNames);
+
+	$womenList = [];
+
+	foreach ($sortedWomenLastNames as $womanLastName) {
+		
+		foreach ($women as $womenData) {
+			
+			if( $womanLastName == $womenData->lastName ){
+				$womenList[] = $womenData;
+				break;
+			}
+
+		}
+
+	}
+
+	$menLastNames = [];
+
+	foreach ($men as $man) {
+		$menLastNames[] = $man->lastName;
+	}
+
+	$sortedMenLastNames = sortLogic($menLastNames);
+
+	$menList = [];
+
+	foreach ($sortedMenLastNames as $menLastName) {
+		
+		foreach ($men as $menData) {
+			
+			if( $menLastName == $menData->lastName ){
+				$menList[] = $menData;
+				break;
+			}
+
+		}
+
+	}
+
+	$userList = array_merge($womenList, $menList);
+
+	return $userList;
+}
+
+// sortByGenderAndLastName();
+
 function generateOutput()
 {
 	// USER LIST - UNSORTED
@@ -256,6 +327,26 @@ function generateOutput()
 	foreach ($usersSortedByLastName as $userInfo) {
 		
 		$row = str_pad($userInfo->lastName, 15) . " " . str_pad($userInfo->firstName, 15) . " " . str_pad($userInfo->gender, 15) . " " . str_pad($userInfo->dateOfBirth, 15) . " " . str_pad($userInfo->favoriteColor, 15) . "\n";
+
+		$rows[] = $row;
+
+	}
+
+	$rows[] = $lastRow;
+
+	// END
+
+	// USER LIST - SORT BY GENDER AND LAST NAME ASCENDING
+
+	$usersSortedByGenderAndLastName = sortByGenderAndLastName();
+
+	$firstRow = "\n\nUser List - Sorted by Gender and Last Name - Ascending\n--------------------------------------------------------------------\n";
+
+	$rows[] = $firstRow;
+
+	foreach ($usersSortedByGenderAndLastName as $userInformation) {
+		
+		$row = str_pad($userInformation->lastName, 15) . " " . str_pad($userInformation->firstName, 15) . " " . str_pad($userInformation->gender, 15) . " " . str_pad($userInformation->dateOfBirth, 15) . " " . str_pad($userInformation->favoriteColor, 15) . "\n";
 
 		$rows[] = $row;
 

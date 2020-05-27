@@ -270,19 +270,17 @@ function sortByGenderAndLastName()
 
 function generateOutput()
 {
-	// USER LIST - UNSORTED
+	// USER LIST - SORT BY GENDER AND LAST NAME ASCENDING
 
-	$users = getUserList();
+	$usersSortedByGenderAndLastName = sortByGenderAndLastName();
 
-	$rows = [];
-
-	$firstRow = "User List - Unsorted\n--------------------------------------------------------------------\n";
+	$firstRow = "User List - Sorted by Gender and Last Name - Ascending\n--------------------------------------------------------------------\n";
 
 	$rows[] = $firstRow;
 
-	foreach ($users as $userData) {
-
-		$row = str_pad($userData->lastName, 15) . " " . str_pad($userData->firstName, 15) . " " . str_pad($userData->gender, 15) . " " . str_pad($userData->dateOfBirth, 15) . " " . str_pad($userData->favoriteColor, 15) . "\n";
+	foreach ($usersSortedByGenderAndLastName as $userInformation) {
+		
+		$row = str_pad($userInformation->lastName, 15) . " " . str_pad($userInformation->firstName, 15) . " " . str_pad($userInformation->gender, 15) . " " . str_pad($userInformation->dateOfBirth, 15) . " " . str_pad($userInformation->favoriteColor, 15) . "\n";
 
 		$rows[] = $row;
 
@@ -292,7 +290,7 @@ function generateOutput()
 
 	$rows[] = $lastRow;
 
-	// END 
+	// END
 
 	// USER LIST - SORTED BY DATE OF BIRTH - ASCENDING 
 
@@ -334,27 +332,9 @@ function generateOutput()
 
 	// END
 
-	// USER LIST - SORT BY GENDER AND LAST NAME ASCENDING
-
-	$usersSortedByGenderAndLastName = sortByGenderAndLastName();
-
-	$firstRow = "\n\nUser List - Sorted by Gender and Last Name - Ascending\n--------------------------------------------------------------------\n";
-
-	$rows[] = $firstRow;
-
-	foreach ($usersSortedByGenderAndLastName as $userInformation) {
-		
-		$row = str_pad($userInformation->lastName, 15) . " " . str_pad($userInformation->firstName, 15) . " " . str_pad($userInformation->gender, 15) . " " . str_pad($userInformation->dateOfBirth, 15) . " " . str_pad($userInformation->favoriteColor, 15) . "\n";
-
-		$rows[] = $row;
-
-	}
-
-	$rows[] = $lastRow;
-
-	// END
-
 	file_put_contents('files/output.txt', $rows);
+
+	echo "Output created. User List generated.";
 }
 
 generateOutput();
